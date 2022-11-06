@@ -5,6 +5,7 @@ document.getElementById("issueInputForm").addEventListener(('submit', saveIssue)
 function fetchIssues () {
     let issues = JSON.parse(localStorage.get('issue'))
     let issuesList = document.getElementById('issuesList')
+    console.log(issues)
 
     issuesList.innerHTML = '';
 
@@ -17,7 +18,13 @@ function fetchIssues () {
         let status = issues[i].status
         let statusColor = status == 'Closed' ? 'label-success' : 'label-info'
 
-        // issuesList,innerHTML
+        issuesList.innerHTML +=
+            '<div class="well">' +
+            '<h6> Issue ID:' + id + '</h6' +
+             '<p><span class="label' + statusColor + ' ">' + status + '</span></p>' +
+            '<h3>' + subject + '</h3>' +
+            '<p>' + description + '</p>' +
+            '</div>'
 
     }
 
