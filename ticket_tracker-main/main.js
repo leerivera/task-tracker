@@ -23,10 +23,9 @@ function fetchIssues() {
             '<p><span class= "label ' + statusColor + ' ">' + status + '</span></p>' +
             '<h3>' + subject + '</h3>' +
             '<p>' + description + '</p>' +
-            '<p><span class="glyphicon glyphicon-time"></span> ' + severity + '' +
-            '<span class="glyphicon glyphicon-user"></span>' + assignedTo + '</p>' +
-            '<a href="#" class="btn btn-warning" onclick=" setStatusClosed(\' '+id+'\')">Close</a>' +
-                '<a href="#" class = "btn" '
+            '<p><span class="glyphicon glyphicon-time"></span> ' + severity + ' ' + '<span class="glyphicon glyphicon-user"></span>' + assignedTo + '</p>' +
+            '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\''+id+'\')">Close</a> ' +
+            '<a href="#" class="btn btn-danger" onclick="deleteIssue(\''+id+'\')">Delete</a> '
             + '</div>'
     }
 }
@@ -63,4 +62,17 @@ function saveIssue(e) {
     fetchIssues()
 
     e.preventDefault()
+
+    function setStatusClosed(id) {
+        let issues = JSON.parse(localStorage.getItem('issues'))
+        for (let i = 0; i < issues.length; i++) {
+            if (issues[i].id === id) {
+                issues[i].status = "Closed"
+            }
+        }
+
+        localStorage.setItem('issues', JSON.stringify(issues))
+
+        fetchIssues()
+    }
 }
